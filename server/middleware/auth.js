@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import config from '../config.js'
 import { UnauthenticatedError } from '../errors/index.js';
 
 const authMiddleware = async (req, res, next) => {
@@ -10,7 +11,7 @@ const authMiddleware = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     try {
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        const payload = jwt.verify(token, config.JWT_SECRET);
         req.user = {userId: payload.userId}
         next();
     } catch (error) {
