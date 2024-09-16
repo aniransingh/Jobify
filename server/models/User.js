@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import config from '../config.js'
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -49,8 +50,8 @@ UserSchema.pre('save', async function () {
 
 UserSchema.methods = {
     createJWT: function () {
-        return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_LIFETIME,
+        return jwt.sign({ userId: this._id }, config.JWT_SECRET, {
+            expiresIn: config.JWT_LIFETIME,
         });
     },
     comparePassword: async function (password) {

@@ -1,4 +1,5 @@
 import { readFile } from 'fs/promises';
+import config from './config.js'
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -8,7 +9,7 @@ import Job from './models/Job.js';
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI);
+    await connectDB(config.MONGO_URI);
     await Job.deleteMany();
 
     const jsonProducts = JSON.parse(
