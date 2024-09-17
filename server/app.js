@@ -42,9 +42,10 @@ const port = config.PORT || 4000;
 const start = async () => {
     try {
         await connectDB(config.MONGO_URI);
-        app.listen(port, () => console.log(`server listening on port ${port}`));
+        app.listen(port, () => console.log(`Server listening on port ${port}`));
     } catch (error) {
-        console.log(error);
+        console.log("Error connecting to db", error.message);
+        process.exit(1)
     }
 };
 
