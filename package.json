@@ -1,0 +1,24 @@
+{
+    "name": "jobify-mern-project",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "start": "concurrently --kill-others \"npm --prefix client run dev\" \"npm --prefix server start\"",
+      "build": "npm --prefix client build",
+      "lint": "eslint ./client/src ./server",
+      "test": "npm --prefix client test && npm --prefix server test"
+    },
+    "dependencies": {
+      "concurrently": "^7.0.0",
+      "eslint": "^7.0.0"
+    },
+    "devDependencies": {
+      "eslint": "^7.0.0"
+    },
+    "engines": {
+      "node": ">=14.0.0"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  
