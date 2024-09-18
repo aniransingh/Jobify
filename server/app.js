@@ -15,12 +15,24 @@ import authMiddleware from './middleware/auth.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 
 const app = express();
 
-// if (config.NODE_ENV !== 'production') {
-//     app.use(morgan('dev'));
-// }
+if (config.NODE_ENV !== 'production') {
+    app.use(morgan('dev'));
+}
+
+// heath check
+app.get("/", async (_, res) => {
+    try {
+        await mongoose.connection.db.admin().ping()
+    return res.status(StatusCodes.OK).json({status: "healthy", db: "connected"})
+    } catch (error) {
+        return res.status(StatusCodes.OK).json({status: "healthy", db: "not connected"})
+    }
+})
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
